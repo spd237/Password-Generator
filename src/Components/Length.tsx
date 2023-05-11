@@ -1,10 +1,11 @@
-import { useState } from "react";
-
-export default function Length() {
-  const [lengthVal, setLengthVal] = useState(0);
+interface PropsType {
+  length: number;
+  setLength: React.Dispatch<React.SetStateAction<number>>;
+}
+export default function Length({ length, setLength }: PropsType) {
   const style = {
-    background: `linear-gradient(90deg, #a4ffaf ${lengthVal * 5}%, #fff ${
-      lengthVal * 5
+    background: `linear-gradient(90deg, #a4ffaf ${length * 5}%, #fff ${
+      length * 5
     }%)`,
   };
 
@@ -12,9 +13,7 @@ export default function Length() {
     <div>
       <p className="flex justify-between items-center mb-2 md:text-lg">
         Character Length{" "}
-        <span className=" text-neon-green text-2xl md:text-3xl">
-          {lengthVal}
-        </span>
+        <span className=" text-neon-green text-2xl md:text-3xl">{length}</span>
       </p>
       <label>
         <input
@@ -24,8 +23,8 @@ export default function Length() {
           className="w-full"
           max={20}
           style={style}
-          value={lengthVal}
-          onChange={(e) => setLengthVal(parseInt(e.target.value))}
+          value={length}
+          onChange={(e) => setLength(parseInt(e.target.value))}
         />
       </label>
     </div>

@@ -1,9 +1,32 @@
-export default function PasswordDisplay() {
+import { useState } from "react";
+
+export default function PasswordDisplay({ password }: { password: string }) {
+  const [copied, setCopied] = useState(false);
+  function handleCopy() {
+    if (password.length > 0) {
+      setCopied(true);
+      setTimeout(() => {
+        setCopied(false);
+      }, 3000);
+    }
+  }
   return (
-    <div className="bg-dark-grey p-4 flex justify-between min-h-[68px] md:px-8">
-      {/* <span className=" text-2xl md:text-3xl"></span> */}
-      <span className=" opacity-25 text-2xl md:text-3xl">P4$5W0rD!</span>
-      <button>
+    <div className="bg-dark-grey p-4 flex items-center justify-between min-h-[68px] md:px-8">
+      {password.length > 0 ? (
+        <span className=" text-2xl md:text-3xl">{password}</span>
+      ) : (
+        <span className=" opacity-25 text-2xl md:text-3xl">P4$5W0rD!</span>
+      )}
+      <button
+        onClick={() => {
+          navigator.clipboard.writeText(password);
+          handleCopy();
+        }}
+        className="flex items-center gap-4"
+      >
+        {copied && (
+          <span className=" text-neon-green uppercase md:text-lg">copied</span>
+        )}
         <svg
           width="21"
           height="24"
